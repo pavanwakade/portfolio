@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
-import { FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaLightbulb, FaPaperPlane } from 'react-icons/fa'
+import { Mail, Phone, MapPin, Linkedin, Github, Sparkles, Send, CheckCircle } from 'lucide-react'
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -11,27 +10,20 @@ const Contact = () => {
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
   const sectionRef = useRef(null)
+
+  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzEmDiL5cR4yxgvEo743i9Jl5G2y3FH_O3bk7hpjCvcvGEe1LfjvUXriI96oPBCit5FxA/exec'
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
+        if (entry.isIntersecting) setIsVisible(true)
       },
       { threshold: 0.1 }
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-    }
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => sectionRef.current && observer.unobserve(sectionRef.current)
   }, [])
 
   const handleChange = (e) => {
@@ -41,218 +33,283 @@ const Contact = () => {
     })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    if (e && e.preventDefault) e.preventDefault()
     setIsSubmitting(true)
-    
-    setTimeout(() => {
-      alert('Thank you for your message! I will get back to you soon.')
-      setFormData({ name: '', email: '', subject: '', message: '' })
+
+    try {
+      const response = await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        body: new URLSearchParams(formData),
+      })
+
+      const result = await response.json()
+      if (result.result === 'success') {
+        setSubmitted(true)
+        setTimeout(() => {
+          setFormData({ name: '', email: '', subject: '', message: '' })
+          setSubmitted(false)
+        }, 3000)
+      } else {
+        alert('⚠️ Failed to send message. Please try again later.')
+        console.error(result.error)
+      }
+    } catch (error) {
+      console.error('Submission error:', error)
+      alert('❌ Network or script error occurred.')
+    } finally {
       setIsSubmitting(false)
-    }, 1500)
+    }
   }
 
   const contactInfo = [
     {
-      icon: HiMail,
+      icon: Mail,
       title: 'Email',
       value: 'pavanwakade143@gmail.com',
-      link: 'mailto:pavanwakade143',
+      link: 'mailto:pavanwakade143@gmail.com',
+      gradient: 'from-violet-500 to-purple-500',
     },
     {
-      icon: HiPhone,
+      icon: Phone,
       title: 'Phone',
       value: '+91 8317277608',
       link: 'tel:+918317277608',
+      gradient: 'from-blue-500 to-cyan-500',
     },
     {
-      icon: HiLocationMarker,
+      icon: MapPin,
       title: 'Location',
-      value: 'pune, India',
+      value: 'Pune, India',
       link: '#',
+      gradient: 'from-emerald-500 to-teal-500',
     },
   ]
 
   const socialLinks = [
-    { icon: FaLinkedin, name: 'LinkedIn', url: 'https://www.linkedin.com/in/pavan-w/', color: 'from-blue-600 to-blue-700' },
-    { icon: FaGithub, name: 'GitHub', url: 'https://github.com/pavanwakade/QSpiders-Full-Stack-Java', color: 'from-gray-700 to-gray-900' },
-    // { icon: FaTwitter, name: 'Twitter', url: 'https://twitter.com', color: 'from-blue-400 to-blue-600' },
-    // { icon: FaInstagram, name: 'Instagram', url: 'https://instagram.com', color: 'from-pink-500 to-purple-600' },
+    {
+      icon: Linkedin,
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/pavan-w/',
+      gradient: 'from-blue-600 via-blue-500 to-cyan-500',
+    },
+    {
+      icon: Github,
+      name: 'GitHub',
+      url: 'https://github.com/pavanwakade/QSpiders-Full-Stack-Java',
+      gradient: 'from-gray-800 via-gray-700 to-gray-900',
+    },
   ]
 
   return (
-    <section id="contact" ref={sectionRef} className="py-20 bg-gray-50 dark:bg-gray-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" ref={sectionRef} className="relative py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900 overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 dark:bg-purple-900 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-300 dark:bg-pink-900 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Get In Touch
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8"></div>
-          <p className="text-center text-gray-600 dark:text-gray-400 mb-16 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? Feel free to reach out. I'm always open to discussing new opportunities.
-          </p>
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-full mb-6 backdrop-blur-sm border border-blue-500/20">
+              <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Let's Connect</span>
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Get In Touch
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              Have an exciting project in mind? Let's collaborate and create something extraordinary together.
+            </p>
+          </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-              <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-                Contact Information
-              </h3>
-
-              <div className="space-y-6 mb-8">
+          <div className="grid lg:grid-cols-5 gap-8">
+            {/* Contact Info - Left Side */}
+            <div className={`lg:col-span-2 space-y-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+              {/* Contact Cards */}
+              <div className="space-y-4">
                 {contactInfo.map((info, index) => {
                   const InfoIcon = info.icon
                   return (
                     <a
                       key={index}
                       href={info.link}
-                      className="flex items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+                      className="group relative block p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-transparent shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden"
                     >
-                      <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                        <InfoIcon className="text-2xl text-white" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {info.title}
-                        </p>
-                        <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                          {info.value}
-                        </p>
+                      <div className={`absolute inset-0 bg-gradient-to-r ${info.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                      <div className="relative flex items-center gap-4">
+                        <div className={`w-12 h-12 bg-gradient-to-r ${info.gradient} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                          <InfoIcon className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{info.title}</p>
+                          <p className="font-semibold text-gray-900 dark:text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300">{info.value}</p>
+                        </div>
                       </div>
                     </a>
                   )
                 })}
               </div>
 
-              <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-                Connect With Me
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {socialLinks.map((social, index) => {
-                  const SocialIcon = social.icon
-                  return (
-                    <a
-                      key={index}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center justify-center p-4 bg-gradient-to-r ${social.color} text-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 font-semibold`}
-                    >
-                      <SocialIcon className="text-2xl mr-2" />
-                      {social.name}
-                    </a>
-                  )
-                })}
+              {/* Social Links */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Connect With Me</h3>
+                <div className="grid gap-4">
+                  {socialLinks.map((social, index) => {
+                    const SocialIcon = social.icon
+                    return (
+                      <a
+                        key={index}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group relative flex items-center justify-center gap-3 p-4 bg-gradient-to-r ${social.gradient} text-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden`}
+                      >
+                        <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        <SocialIcon className="w-5 h-5 relative z-10" />
+                        <span className="font-semibold relative z-10">{social.name}</span>
+                      </a>
+                    )
+                  })}
+                </div>
               </div>
 
-              <div className="mt-8 p-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white">
-                <h4 className="text-xl font-bold mb-2 flex items-center">
-                  <FaLightbulb className="mr-2" /> Let's Build Something Amazing!
-                </h4>
-                <p className="text-sm opacity-90">
-                  I'm currently available for freelance work and full-time opportunities. 
-                  Let's turn your ideas into reality!
+              {/* CTA Card */}
+              <div className="relative p-8 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-2xl text-white shadow-2xl overflow-hidden">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6TTI0IDQyYzMuMzEgMCA2IDIuNjkgNiA2cy0yLjY5IDYtNiA2LTYtMi42OS02LTYgMi42OS02IDYtNnoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9Ii4xIiBzdHJva2Utd2lkdGg9IjIiLz48L2c+PC9zdmc+')] opacity-10"></div>
+                <Sparkles className="w-8 h-8 mb-4 relative z-10" />
+                <h4 className="text-2xl font-bold mb-3 relative z-10">Let's Build Something Amazing!</h4>
+                <p className="text-blue-100 leading-relaxed relative z-10">
+                  I'm currently available for freelance work and full-time opportunities. Let's turn your ideas into reality!
                 </p>
               </div>
             </div>
 
-            <div className={`transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-              <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
-                <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-                  Send Me a Message
-                </h3>
-
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white"
-                      placeholder="John Doe"
-                    />
+            {/* Contact Form - Right Side */}
+            <div className={`lg:col-span-3 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+              <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-10 border border-gray-200 dark:border-gray-700">
+                {submitted ? (
+                  <div className="flex flex-col items-center justify-center py-16 animate-in fade-in duration-500">
+                    <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-lg">
+                      <CheckCircle className="w-10 h-10 text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">Message Sent!</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-center max-w-md">
+                      Thanks for reaching out! I'll get back to you as soon as possible.
+                    </p>
                   </div>
+                ) : (
+                  <div className="space-y-6">
+                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                      Send Me a Message
+                    </h3>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Your Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white"
-                      placeholder="john@example.com"
-                    />
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Your Name</label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
+                          placeholder="John Doe"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Your Email</label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
+                          placeholder="john@example.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Subject</label>
+                      <input
+                        type="text"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
+                        placeholder="Project Inquiry"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Message</label>
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        rows="6"
+                        className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400 resize-none"
+                        placeholder="Tell me about your project..."
+                      ></textarea>
+                    </div>
+
+                    <button
+                      onClick={handleSubmit}
+                      disabled={isSubmitting}
+                      className={`group relative w-full py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-xl font-bold shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${
+                        isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:scale-105'
+                      }`}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {isSubmitting ? (
+                        <span className="relative flex items-center justify-center gap-3">
+                          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Sending...
+                        </span>
+                      ) : (
+                        <span className="relative flex items-center justify-center gap-3">
+                          Send Message
+                          <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                        </span>
+                      )}
+                    </button>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white"
-                      placeholder="Project Inquiry"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows="5"
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white resize-none"
-                      placeholder="Tell me about your project..."
-                    ></textarea>
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`w-full py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 ${
-                      isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:scale-105'
-                    }`}
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center justify-center">
-                        <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Sending...
-                      </span>
-                    ) : (
-                      <span className="flex items-center justify-center">
-                        Send Message <FaPaperPlane className="ml-2" />
-                      </span>
-                    )}
-                  </button>
-                </div>
-              </form>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes blob {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
     </section>
   )
 }
 
 export default Contact
-
-
