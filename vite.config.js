@@ -10,4 +10,23 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
   },
+  build: {
+    // Enable code splitting for better performance
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'icons': ['lucide-react', 'react-icons'],
+        },
+      },
+    },
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1000,
+  },
+  // Enable compression
+  server: {
+    headers: {
+      'Cache-Control': 'public, max-age=31536000',
+    },
+  },
 })

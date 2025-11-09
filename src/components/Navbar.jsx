@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import pavanwakade from "../assets/pavanfull.jpg";
+import { HiSun, HiMoon } from "react-icons/hi";
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -110,14 +111,14 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             <div className="flex items-center space-x-3">
               {/* Theme Toggle */}
               <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="relative p-3 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl group overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/20 to-pink-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative text-xl">
-                  {darkMode ? "🌞" : "🌙"}
-                </div>
-              </button>
+  onClick={() => setDarkMode(!darkMode)}
+  className="relative p-3 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl group overflow-hidden"
+>
+  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/20 to-pink-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="relative text-xl text-gray-800 dark:text-yellow-300">
+    {darkMode ? <HiSun /> : <HiMoon />}
+  </div>
+</button>
 
               {/* Mobile Menu Button */}
               <button

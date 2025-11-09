@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -20,18 +21,25 @@ function App() {
   }, [darkMode])
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} overflow-x-hidden`}>
-      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300 overflow-x-hidden">
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Contact />
-        <Footer />
+    <>
+      <Helmet>
+        <html lang="en" />
+        <meta name="theme-color" content={darkMode ? '#111827' : '#ffffff'} />
+      </Helmet>
+      
+      <div className={`${darkMode ? 'dark' : ''} overflow-x-hidden`}>
+        <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300 overflow-x-hidden">
+          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Contact />
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
