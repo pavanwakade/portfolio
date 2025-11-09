@@ -217,7 +217,7 @@ const Contact = () => {
                           onChange={handleChange}
                           required
                           className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                          placeholder="John Doe"
+                          // placeholder="John Doe"
                         />
                       </div>
 
@@ -230,7 +230,7 @@ const Contact = () => {
                           onChange={handleChange}
                           required
                           className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                          placeholder="john@example.com"
+                          // placeholder="john@example.com"
                         />
                       </div>
                     </div>
@@ -244,7 +244,7 @@ const Contact = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                        placeholder="Project Inquiry"
+                        // placeholder="Project Inquiry"
                       />
                     </div>
 
@@ -257,7 +257,7 @@ const Contact = () => {
                         required
                         rows="6"
                         className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400 resize-none"
-                        placeholder="Tell me about your project..."
+                        // placeholder="Tell me about your project..."
                       ></textarea>
                     </div>
 

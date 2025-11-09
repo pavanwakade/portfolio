@@ -41,9 +41,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <>
       <nav
-        className={`fixed w-full z-50 transition-all duration-500 bg-transparent`}
+        className={`fixed w-full z-50 transition-all duration-500 bg-transparent pointer-events-none`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 pointer-events-auto">
           <div className="flex justify-between items-center h-20">
 
             {/* 🔹 Logo Section (MOBILE ONLY) */}
