@@ -53,9 +53,9 @@ const Experience = () => {
                 'Developing full-stack web applications integrating external REST APIs using Spring Boot and managing secure backend services. Designing responsive front-end interfaces and deploying applications using Docker.',
             achievements: [
                 'Converted from Intern to Full-Time Employee within 2 months based on performance',
-                'Implemented authentication and authorization using Spring Security and JWT',
+                'Implemented Full stack web Application using Spring boot , React ,MySQL',
                 'Developed reusable APIs and optimized MySQL database schema',
-                'Deployed applications via Docker and AWS Elastic Beanstalk',
+                // 'Deployed applications via Docker and AWS Elastic Beanstalk',
             ],
             icon: FaBriefcase,
         },
@@ -90,13 +90,13 @@ const Experience = () => {
     const education = [
         {
             degree: 'Bachelor of Engineering',
-            field: 'Computer Engineering',
+            field: 'Electonics & Telecommunication Engineering',
             institution: 'Savitribai Phule Pune University',
             period: '2021 – 2024',
             icon: FaGraduationCap,
         },
         {
-            degree: 'Diploma in Computer Technology',
+            degree: 'Diploma of Engineering',
             field: 'Computer Technology',
             institution: 'MSBTE Mumbai',
             period: '2018 – 2021',
@@ -118,7 +118,7 @@ const Experience = () => {
         },
 
         {
-            degree: 'Certification - Api Testing',
+            degree: 'Api Testing - Certification',
             field: 'Postman API Fundamentals',
             institution: 'Postman',
             period: '2024',
