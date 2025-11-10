@@ -13,7 +13,7 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false)
   const sectionRef = useRef(null)
 
-  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwG9Nj4v4tG1GXsQCNrtXWnL_vCPek3_-DfWXy6LJkKNB3cYqAw2jTT8If2u3tcgQVqdA/exec"
+  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyv-i2c3o5fQ8MomRmgP8f9plMAdIjwB4NCBpWWy0griuBbWgzg6Qq54dnufH8_347rIw/exec"
 
   useEffect(() => {
     const observer = new IntersectionObserver(

@@ -11,7 +11,7 @@ const Projects = () => {
   const sectionRef = useRef(null)
 
   // Replace this with your Google Apps Script Web App URL
-  const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbxUrHx1ctBCgn9dVpZB-KZ7IgzIEYScj2ntcQWMKoXsQ4eAULCE4oFEo1ToQ-zoW5FIGQ/exec'
+  const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzFetZamg9a8U5uS-ITwhOiabYuEkuq5GissJTXcMsevwxhYOwRCnDsG_uuLrsgkqru/exec'
   
   // CRUD Operations - uncomment to use
   

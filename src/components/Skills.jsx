@@ -26,8 +26,8 @@ const Skills = () => {
 
   // API URLs for separate skills and technologies scripts
   const API_URLS = {
-    skills: 'https://script.google.com/macros/s/AKfycbwvLPj_Psb8EAWp6b5oyAuhhFSG1KAzBSjNJSgrgGDdZSm-VDxjsUJg4PRVkdISQ2vbrA/exec',
-    technologies: 'https://script.google.com/macros/s/AKfycbxmQq4ZSGjvvpBkw6hBEA2XYh0H9y129yIJo0EwX7sfwOFZRpUSXQcSBwdHPzXGs057/exec'
+    skills: 'https://script.google.com/macros/s/AKfycbzlSuUUFMhsMndp2BdN8x_4m9z2ym-u2LMofsfcM3c0D98kPxppEfCfoSn0OdxOktv6PA/exec',
+    technologies: 'https://script.google.com/macros/s/AKfycbxOciCQmF731K-g8eNBDblAlyravEB5HFdSVeKhqqN85CDBI-27DMzbl9ewGWFoWhbZGQ/exec'
   }
     
   // ===============================

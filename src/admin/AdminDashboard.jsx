@@ -16,10 +16,10 @@ const AdminDashboard = () => {
   
   // Replace with your Google Apps Script URLs
   const API_URLS = {
-    projects: 'https://script.google.com/macros/s/AKfycbxUrHx1ctBCgn9dVpZB-KZ7IgzIEYScj2ntcQWMKoXsQ4eAULCE4oFEo1ToQ-zoW5FIGQ/exec',
-    skills: 'https://script.google.com/macros/s/AKfycbwvLPj_Psb8EAWp6b5oyAuhhFSG1KAzBSjNJSgrgGDdZSm-VDxjsUJg4PRVkdISQ2vbrA/exec', // Deploy skills_only.gs and paste URL here
-    technologies: 'https://script.google.com/macros/s/AKfycbxmQq4ZSGjvvpBkw6hBEA2XYh0H9y129yIJo0EwX7sfwOFZRpUSXQcSBwdHPzXGs057/exec', // Deploy technologies_only.gs and paste URL here
-    contacts: 'https://script.google.com/macros/s/AKfycbwG9Nj4v4tG1GXsQCNrtXWnL_vCPek3_-DfWXy6LJkKNB3cYqAw2jTT8If2u3tcgQVqdA/exec'
+    projects: 'https://script.google.com/macros/s/AKfycbzFetZamg9a8U5uS-ITwhOiabYuEkuq5GissJTXcMsevwxhYOwRCnDsG_uuLrsgkqru/exec',
+    skills: 'https://script.google.com/macros/s/AKfycbzlSuUUFMhsMndp2BdN8x_4m9z2ym-u2LMofsfcM3c0D98kPxppEfCfoSn0OdxOktv6PA/exec', // Deploy skills_only.gs and paste URL here
+    technologies: 'https://script.google.com/macros/s/AKfycbxOciCQmF731K-g8eNBDblAlyravEB5HFdSVeKhqqN85CDBI-27DMzbl9ewGWFoWhbZGQ/exec', // Deploy technologies_only.gs and paste URL here
+    contacts: 'https://script.google.com/macros/s/AKfycbyv-i2c3o5fQ8MomRmgP8f9plMAdIjwB4NCBpWWy0griuBbWgzg6Qq54dnufH8_347rIw/exec'
   }
 
   // Form state
