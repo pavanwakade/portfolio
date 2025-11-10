@@ -1,32 +1,76 @@
 import { useEffect, useRef, useState } from 'react'
-import { FaShoppingCart, FaTasks, FaChartLine, FaUniversity, FaComments, FaCloudSun, FaGithub, FaExternalLinkAlt, FaCode, FaDatabase, FaMobile, FaRocket, FaGamepad, FaBrain } from 'react-icons/fa'
+import { FaShoppingCart, FaTasks, FaChartLine, FaUniversity, FaComments, FaCloudSun, FaGithub, FaExternalLinkAlt, FaCode, FaServer, FaMobileAlt, FaDatabase, FaRocket, FaCog } from 'react-icons/fa'
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [activeFilter, setActiveFilter] = useState('All')
   const [projects, setProjects] = useState([])
+  const [filters, setFilters] = useState(['All'])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [imageErrors, setImageErrors] = useState({})
   const sectionRef = useRef(null)
 
-  // Google Apps Script Web App URL (replace with your deployed script URL)
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCKedk2S2ItX6Xd8skIy2fcFOFoMGd79Hm-8LmQGeABtwdhPtlUlQAbpNVMa16wHi_Yw/exec';
-// AKfycbxCKedk2S2ItX6Xd8skIy2fcFOFoMGd79Hm-8LmQGeABtwdhPtlUlQAbpNVMa16wHi_Yw
-  // Icon mapping for different project types
+  // Replace this with your Google Apps Script Web App URL
+  const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbxUrHx1ctBCgn9dVpZB-KZ7IgzIEYScj2ntcQWMKoXsQ4eAULCE4oFEo1ToQ-zoW5FIGQ/exec'
+  
+  // CRUD Operations - uncomment to use
+  
+  // Create new project
+  const createProject = async (projectData) => {
+    try {
+      const response = await fetch(`${SHEETS_API_URL}?action=create`, {
+        method: 'POST',
+        body: JSON.stringify(projectData)
+      })
+      return await response.json()
+    } catch (error) {
+      console.error('Error creating project:', error)
+      return { success: false, message: error.message }
+    }
+  }
+  
+  // Update project
+  const updateProject = async (id, projectData) => {
+    try {
+      const response = await fetch(`${SHEETS_API_URL}?action=update`, {
+        method: 'POST',
+        body: JSON.stringify({ id, ...projectData })
+      })
+      return await response.json()
+    } catch (error) {
+      console.error('Error updating project:', error)
+      return { success: false, message: error.message }
+    }
+  }
+  
+  // Delete project
+  const deleteProject = async (id) => {
+    try {
+      const response = await fetch(`${SHEETS_API_URL}?action=delete`, {
+        method: 'POST',
+        body: JSON.stringify({ id })
+      })
+      return await response.json()
+    } catch (error) {
+      console.error('Error deleting project:', error)
+      return { success: false, message: error.message }
+    }
+  }
+
+  // Icon mapping
   const iconMap = {
-    'FaShoppingCart': FaShoppingCart,
-    'FaTasks': FaTasks,
-    'FaChartLine': FaChartLine,
-    'FaUniversity': FaUniversity,
-    'FaComments': FaComments,
-    'FaCloudSun': FaCloudSun,
-    'FaCode': FaCode,
-    'FaDatabase': FaDatabase,
-    'FaMobile': FaMobile,
-    'FaRocket': FaRocket,
-    'FaGamepad': FaGamepad,
-    'FaBrain': FaBrain,
+    FaShoppingCart,
+    FaTasks,
+    FaChartLine,
+    FaUniversity,
+    FaComments,
+    FaCloudSun,
+    FaCode,
+    FaServer,
+    FaMobileAlt,
+    FaDatabase,
+    FaRocket,
+    FaCog,
   }
 
   useEffect(() => {
@@ -55,30 +99,40 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         setLoading(true)
-        const response = await fetch(GOOGLE_SCRIPT_URL)
+        const response = await fetch(`${SHEETS_API_URL}?action=list`)
         
         if (!response.ok) {
           throw new Error('Failed to fetch projects')
         }
-
+        
         const data = await response.json()
         
-        if (data.result === 'success' && data.projects) {
-          // Transform the data to include proper icon components
-          const transformedProjects = data.projects.map(project => ({
+        if (data.success && data.projects) {
+          // Map icon strings to actual icon components
+          const projectsWithIcons = data.projects.map(project => ({
             ...project,
-            icon: iconMap[project.iconName] || FaCode,
-            tech: Array.isArray(project.tech) ? project.tech : project.tech.split(',').map(t => t.trim())
+            icon: iconMap[project.icon] || FaCode
           }))
-          setProjects(transformedProjects)
+          
+          setProjects(projectsWithIcons)
+          
+          // Extract unique categories dynamically
+          const categories = [...new Set(projectsWithIcons.map(p => p.category))].filter(Boolean)
+          setFilters(['All', ...categories.sort()])
+          
+          setError(null)
         } else {
-          throw new Error(data.message || 'Invalid response format')
+          throw new Error(data.message || 'Failed to load projects')
         }
       } catch (err) {
         console.error('Error fetching projects:', err)
         setError(err.message)
-        // Fallback to empty array if fetch fails
-        setProjects([])
+        // Fallback to default projects if fetch fails
+        const defaultProjects = getDefaultProjects()
+        setProjects(defaultProjects)
+        // Set default filters
+        const defaultCategories = [...new Set(defaultProjects.map(p => p.category))]
+        setFilters(['All', ...defaultCategories.sort()])
       } finally {
         setLoading(false)
       }
@@ -87,16 +141,41 @@ const Projects = () => {
     fetchProjects()
   }, [])
 
-  // Handle image load errors
-  const handleImageError = (index) => {
-    setImageErrors(prev => ({
-      ...prev,
-      [index]: true
-    }))
-  }
+  // Default fallback projects
+  const getDefaultProjects = () => [
+    {
+      title: 'E-Commerce Platform',
+      description: 'Full-featured online shopping platform with payment integration, inventory management, and admin dashboard.',
+      tech: ['Java', 'Spring Boot', 'React', 'MySQL', 'Stripe'],
+      category: 'Full Stack',
+      icon: FaShoppingCart,
+      image: '',
+      github: 'https://github.com',
+      demo: 'https://demo.com',
+    },
+    {
+      title: 'Task Management System',
+      description: 'Collaborative project management tool with real-time updates, team collaboration, and progress tracking.',
+      tech: ['Node.js', 'React', 'MongoDB', 'Socket.io'],
+      category: 'Full Stack',
+      icon: FaTasks,
+      image: '',
+      github: 'https://github.com',
+      demo: 'https://demo.com',
+    },
+    {
+      title: 'Social Media Dashboard',
+      description: 'Analytics dashboard for social media metrics with data visualization and automated reporting.',
+      tech: ['React', 'TypeScript', 'Chart.js', 'REST API'],
+      category: 'Frontend',
+      icon: FaChartLine,
+      image: '',
+      github: 'https://github.com',
+      demo: 'https://demo.com',
+    },
+  ]
 
-  // Get unique categories from projects
-  const filters = ['All', ...new Set(projects.map(p => p.category))]
+  // const filters = ['All', 'Full Stack', 'Frontend', 'Backend'  ]
 
   const filteredProjects = activeFilter === 'All'
     ? projects
@@ -104,124 +183,111 @@ const Projects = () => {
 
   return (
     <section id="projects" ref={sectionRef} className="py-20 bg-gray-50 dark:bg-gray-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="mb-4 text-4xl font-bold text-center text-transparent md:text-5xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
             Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8"></div>
-          <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
+          <div className="w-24 h-1 mx-auto mb-8 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+          <p className="max-w-2xl mx-auto mb-12 text-center text-gray-600 dark:text-gray-400">
             Here are some of my recent projects that showcase my skills and expertise in full-stack development.
           </p>
 
+          {error && (
+            <div className="max-w-2xl p-4 mx-auto mb-8 text-center text-yellow-800 bg-yellow-100 rounded-lg dark:bg-yellow-900/30 dark:text-yellow-300">
+              Using default projects (Unable to connect to Google Sheets)
+            </div>
+          )}
+
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
+                  activeFilter === filter
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg scale-105'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:scale-105'
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
           {loading ? (
-            <div className="flex flex-col items-center justify-center py-20">
-              <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-              <p className="text-gray-600 dark:text-gray-400">Loading projects...</p>
-            </div>
-          ) : error ? (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center">
-              <p className="text-red-600 dark:text-red-400 font-medium mb-2">Failed to load projects</p>
-              <p className="text-red-500 dark:text-red-500 text-sm">{error}</p>
-            </div>
-          ) : projects.length === 0 ? (
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-8 text-center">
-              <p className="text-blue-600 dark:text-blue-400 font-medium">No projects found</p>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">Projects will appear here once added to the sheet</p>
+            <div className="flex items-center justify-center py-20">
+              <div className="w-16 h-16 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
             </div>
           ) : (
-            <>
-              <div className="flex flex-wrap justify-center gap-4 mb-12">
-                {filters.map((filter) => (
-                  <button
-                    key={filter}
-                    onClick={() => setActiveFilter(filter)}
-                    className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                      activeFilter === filter
-                        ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg scale-105'
-                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:scale-105'
-                    }`}
-                  >
-                    {filter}
-                  </button>
-                ))}
-              </div>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {filteredProjects.map((project, index) => (
+                <div
+                  key={index}
+                  className={`group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${index * 150}ms` }}
+                >
+                  <div className="relative flex items-center justify-center h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
+                    {project.image ? (
+                      <>
+                        <img 
+                          src={project.image} 
+                          alt={project.title}
+                          className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 transition-all duration-300 bg-black/20 group-hover:bg-black/40"></div>
+                      </>
+                    ) : (
+                      <>
+                        <project.icon className="text-white transition-transform duration-300 text-8xl group-hover:scale-110" />
+                        <div className="absolute inset-0 transition-all duration-300 bg-black/0 group-hover:bg-black/20"></div>
+                      </>
+                    )}
+                  </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredProjects.map((project, index) => {
-                  const IconComponent = project.icon
-                  const hasImage = project.image && project.image.trim() !== '' && !imageErrors[index]
-                  
-                  return (
-                    <div
-                      key={index}
-                      className={`group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${
-                        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                      }`}
-                      style={{ transitionDelay: `${index * 150}ms` }}
-                    >
-                      <div className="relative h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center overflow-hidden">
-                        {hasImage ? (
-                          <>
-                            <img 
-                              src={project.image} 
-                              alt={project.title}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                              onError={() => handleImageError(index)}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-black/70 transition-all duration-300"></div>
-                          </>
-                        ) : (
-                          <>
-                            <IconComponent className="text-8xl text-white group-hover:scale-110 transition-transform duration-300" />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
-                          </>
-                        )}
-                      </div>
+                  <div className="p-6">
+                    <h3 className="mb-2 text-xl font-bold text-gray-900 transition-colors duration-300 dark:text-white group-hover:text-blue-500">
+                      {project.title}
+                    </h3>
+                    <p className="mb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                      {project.description}
+                    </p>
 
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors duration-300">
-                          {project.title}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">
-                          {project.description}
-                        </p>
-
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {project.tech.map((tech, techIndex) => (
-                            <span
-                              key={techIndex}
-                              className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs font-medium"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="flex gap-4">
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg text-center font-medium hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
-                          >
-                            <FaGithub /> GitHub
-                          </a>
-                          <a
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg text-center font-medium hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
-                          >
-                            <FaExternalLinkAlt /> Demo
-                          </a>
-                        </div>
-                      </div>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-3 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full dark:bg-blue-900/30 dark:text-blue-400"
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
-                  )
-                })}
-              </div>
-            </>
+
+                    <div className="flex gap-4">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center flex-1 gap-2 px-4 py-2 font-medium text-center text-white transition-all duration-300 bg-gray-900 rounded-lg dark:bg-gray-700 hover:scale-105"
+                      >
+                        <FaGithub /> GitHub
+                      </a>
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center flex-1 gap-2 px-4 py-2 font-medium text-center text-white transition-all duration-300 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-105"
+                      >
+                        <FaExternalLinkAlt /> Demo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>

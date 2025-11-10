@@ -28,7 +28,7 @@ function App() {
       </Helmet>
       
       <div className={`${darkMode ? 'dark' : ''} overflow-x-hidden`}>
-        <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300 overflow-x-hidden">
+        <div className="overflow-x-hidden text-gray-900 transition-colors duration-300 bg-white dark:bg-gray-900 dark:text-white">
           <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
           <Hero />
           <About />

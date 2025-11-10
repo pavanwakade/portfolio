@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from 'tailwindcss'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   css: {
@@ -11,22 +10,25 @@ export default defineConfig({
     },
   },
   build: {
-    // Enable code splitting for better performance
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'icons': ['lucide-react', 'react-icons'],
+          vendor: ['react', 'react-dom'],
+          icons: ['react-icons', 'lucide-react'],
         },
       },
     },
-    // Optimize chunk size
+    sourcemap: false,
     chunkSizeWarningLimit: 1000,
   },
-  // Enable compression
-  server: {
-    headers: {
-      'Cache-Control': 'public, max-age=31536000',
-    },
-  },
+  // server: {
+  //   port: 3000,
+  //   open: true,
+  // }
 })
