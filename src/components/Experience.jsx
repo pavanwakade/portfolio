@@ -90,7 +90,7 @@ const Experience = () => {
     const education = [
         {
             degree: 'Bachelor of Engineering',
-            field: 'Electonics & Telecommunication Engineering',
+            field: 'Electronics & Telecommunications Engineering',
             institution: 'Savitribai Phule Pune University',
             period: '2021 – 2024',
             icon: FaGraduationCap,
