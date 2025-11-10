@@ -47,16 +47,16 @@
 //         <div className="max-w-7xl mx-auto px-6 lg:px-8 pointer-events-auto">
 //           <div className="flex justify-between items-center h-20">
 
-//             {/* 🔹 Logo Section (MOBILE ONLY) */}
-//             <div className="flex-shrink-0 md:hidden">
-//               <a href="#home">
-//                 <img
-//                   src={pavanwakade}
-//                   alt="Pavan Wakade"
-//                   className="w-12 h-12 rounded-full border-2 border-blue-600 shadow-md hover:scale-110 transition-transform duration-300 hover:shadow-blue-500/40"
-//                 />
-//               </a>
-//             </div>
+            // {/* 🔹 Logo Section (MOBILE ONLY) */}
+            // <div className="flex-shrink-0 md:hidden">
+            //   <a href="#home">
+            //     <img
+            //       src={pavanwakade}
+            //       alt="Pavan Wakade"
+            //       className="w-12 h-12 rounded-full border-2 border-blue-600 shadow-md hover:scale-110 transition-transform duration-300 hover:shadow-blue-500/40"
+            //     />
+            //   </a>
+            // </div>
 
 //             {/* 🔹 Desktop Navigation */}
 //             <div className="hidden md:flex items-center space-x-4 bg-gray-100/50 dark:bg-gray-900/50 rounded-full px-4 py-2 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 mx-auto">
@@ -217,10 +217,9 @@
 
 
 
-
-
 import { useState, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
+import pavanwakade from "../assets/pavanfull.jpg";
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -232,7 +231,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       setIsScrolled(window.scrollY > 20);
 
       const sections = ["home", "about", "skills", "projects", "experience", "contact"];
-      const offset = window.innerHeight / 3; // Better mobile detection
+      const offset = window.innerHeight / 3;
       
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -250,7 +249,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isMobileMenuOpen && !event.target.closest('nav')) {
@@ -260,7 +258,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     
     if (isMobileMenuOpen) {
       document.addEventListener('click', handleClickOutside);
-      // Prevent body scroll when menu is open
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -290,7 +287,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     
     const element = document.querySelector(href);
     if (element) {
-      const offset = 80; // Navbar height
+      const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -314,9 +311,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 onClick={(e) => handleNavClick(e, "#home")}
                 className="block"
               >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-md hover:scale-110 transition-transform duration-300">
-                  PW
-                </div>
+                <img
+                  src={pavanwakade}
+                  alt="Pavan Wakade"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-blue-600 shadow-md hover:scale-110 transition-transform duration-300 hover:shadow-blue-500/40"
+                />
               </a>
             </div>
 
@@ -342,14 +341,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 </a>
               ))}
 
-              {/* Center Profile Image */}
+              {/* Center Profile Image (DESKTOP ONLY) */}
               <a 
                 href="#home" 
                 onClick={(e) => handleNavClick(e, "#home")}
+                className="flex-shrink-0"
               >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold shadow-md hover:scale-110 transition-transform duration-300">
-                  PW
-                </div>
+                <img
+                  src={pavanwakade}
+                  alt="Pavan Wakade"
+                  className="w-12 h-12 rounded-full border-2 border-blue-600 shadow-md hover:scale-110 transition-transform duration-300 hover:shadow-blue-500/40"
+                />
               </a>
 
               {/* Second Half */}
