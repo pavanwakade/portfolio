@@ -4,8 +4,8 @@ const SEO = ({
   title = 'Pavan Wakade | Full Stack Java Developer',
   description = 'Experienced Full Stack Java Developer specializing in Spring Boot, React, microservices, and scalable web applications.',
   keywords = 'Pavan Wakade, Full Stack Developer, Java Developer, Spring Boot, React, Microservices',
-  ogImage = 'https://pavanwakade.com/og-image.jpg',
-  url = 'https://pavanwakade.com/'
+  ogImage = 'https://pavanwakade.netlify.app/og-image.jpg',
+  url = 'https://pavanwakade.netlify.app'
 }) => {
   return (
     <Helmet>

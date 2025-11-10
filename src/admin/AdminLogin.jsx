@@ -10,7 +10,7 @@ const Login = () => {
     
     // Add your authentication logic here
     // This is a simple example - replace with proper authentication
-    if (credentials.username === 'admin123' && credentials.password === 'admin@123') {
+    if (credentials.username === 'pavanwakade11@gmail.com' && credentials.password === 'Pavan#8317277608') {
       localStorage.setItem('isAdmin', 'true');
       navigate('/admin');
     } else {
