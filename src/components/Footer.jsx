@@ -1,7 +1,7 @@
-import { 
-  FaLinkedin, FaGithub, FaTwitter, FaGlobe, 
-  FaMobileAlt, FaServer, FaCloud, FaWrench, 
-  FaPalette, FaHeart, FaArrowRight ,FaLaptopCode
+import {
+  FaLinkedin, FaGithub, FaTwitter, FaGlobe,
+  FaMobileAlt, FaServer, FaCloud, FaWrench,
+  FaPalette, FaHeart, FaArrowRight, FaLaptopCode
 } from 'react-icons/fa'
 import { HiMail } from 'react-icons/hi'
 
@@ -11,14 +11,13 @@ const Footer = () => {
   const socialLinks = [
     { icon: FaLinkedin, url: 'https://www.linkedin.com/in/pavan-w/', label: 'LinkedIn' },
     { icon: FaGithub, url: 'https://github.com/pavanwakade', label: 'GitHub' },
-    { icon: FaTwitter, url: 'https://twitter.com', label: 'Twitter' },
-    { icon: HiMail, url: 'mailto:pavanwakade143@gmail.com', label: 'Email' },
+    { icon: HiMail, url: 'mailto:pavanwakade33@gmail.com', label: 'Email' },
   ]
-const openTo = [
-  { icon: FaGlobe, text: 'Full Stack Developer' },
-  { icon: FaServer, text: 'Backend Developer' },
-  { icon: FaLaptopCode, text: 'Frontend Developer' },
-]
+  const openTo = [
+    { icon: FaGlobe, text: 'Full Stack Developer' },
+    { icon: FaServer, text: 'Backend Developer' },
+    { icon: FaLaptopCode, text: 'Frontend Developer' },
+  ]
 
   return (
     <footer className="bg-gray-900 text-white py-12">
@@ -88,7 +87,7 @@ const openTo = [
 
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-400 flex items-center justify-center flex-wrap gap-1">
-            © 2025 Pavan Wakade. All rights reserved. 
+            © 2026 Pavan Wakade. All rights reserved.
           </p>
           <p className="text-gray-500 text-sm mt-2">
             Designed & Developed by Pavan Wakade

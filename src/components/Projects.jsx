@@ -12,9 +12,9 @@ const Projects = () => {
 
   // Replace this with your Google Apps Script Web App URL
   const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzFetZamg9a8U5uS-ITwhOiabYuEkuq5GissJTXcMsevwxhYOwRCnDsG_uuLrsgkqru/exec'
-  
+
   // CRUD Operations - uncomment to use
-  
+
   // Create new project
   const createProject = async (projectData) => {
     try {
@@ -28,7 +28,7 @@ const Projects = () => {
       return { success: false, message: error.message }
     }
   }
-  
+
   // Update project
   const updateProject = async (id, projectData) => {
     try {
@@ -42,7 +42,7 @@ const Projects = () => {
       return { success: false, message: error.message }
     }
   }
-  
+
   // Delete project
   const deleteProject = async (id) => {
     try {
@@ -100,26 +100,26 @@ const Projects = () => {
       try {
         setLoading(true)
         const response = await fetch(`${SHEETS_API_URL}?action=list`)
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch projects')
         }
-        
+
         const data = await response.json()
-        
+
         if (data.success && data.projects) {
           // Map icon strings to actual icon components
           const projectsWithIcons = data.projects.map(project => ({
             ...project,
             icon: iconMap[project.icon] || FaCode
           }))
-          
+
           setProjects(projectsWithIcons)
-          
+
           // Extract unique categories dynamically
           const categories = [...new Set(projectsWithIcons.map(p => p.category))].filter(Boolean)
           setFilters(['All', ...categories.sort()])
-          
+
           setError(null)
         } else {
           throw new Error(data.message || 'Failed to load projects')
@@ -144,34 +144,24 @@ const Projects = () => {
   // Default fallback projects
   const getDefaultProjects = () => [
     {
-      title: 'E-Commerce Platform',
-      description: 'Full-featured online shopping platform with payment integration, inventory management, and admin dashboard.',
-      tech: ['Java', 'Spring Boot', 'React', 'MySQL', 'Stripe'],
+      title: 'Loan Management System (LMS)',
+      description: 'An enterprise-grade web application designed to automate and manage the complete lifecycle of loan processing, EMI calculations, eligibility validation, and payment schedules for financial institutions.',
+      tech: ['Java 17', 'Spring Boot', 'Microservices', 'Spring Security', 'JWT / RBAC', 'Apache Kafka', 'Hibernate/JPA', 'MySQL'],
+      category: 'Full Stack',
+      icon: FaUniversity,
+      image: '',
+      github: 'https://github.com/pavanwakade',
+      demo: 'https://pavanwakade.netlify.app/',
+    },
+    {
+      title: 'Online E-Commerce Platform',
+      description: 'An enterprise-level online retail platform supporting product catalogs, shopping carts, order fulfillment, secure payments, shipment tracking, and real-time inventory synchronization.',
+      tech: ['Java 17', 'Spring Boot', 'React.js', 'Microservices', 'Spring Security', 'JWT & OAuth2', 'Apache Kafka', 'MySQL'],
       category: 'Full Stack',
       icon: FaShoppingCart,
       image: '',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
-    },
-    {
-      title: 'Task Management System',
-      description: 'Collaborative project management tool with real-time updates, team collaboration, and progress tracking.',
-      tech: ['Node.js', 'React', 'MongoDB', 'Socket.io'],
-      category: 'Full Stack',
-      icon: FaTasks,
-      image: '',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
-    },
-    {
-      title: 'Social Media Dashboard',
-      description: 'Analytics dashboard for social media metrics with data visualization and automated reporting.',
-      tech: ['React', 'TypeScript', 'Chart.js', 'REST API'],
-      category: 'Frontend',
-      icon: FaChartLine,
-      image: '',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      github: 'https://github.com/pavanwakade',
+      demo: 'https://pavanwakade.netlify.app/',
     },
   ]
 
@@ -204,11 +194,10 @@ const Projects = () => {
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                  activeFilter === filter
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg scale-105'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:scale-105'
-                }`}
+                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${activeFilter === filter
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg scale-105'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:scale-105'
+                  }`}
               >
                 {filter}
               </button>
@@ -220,20 +209,19 @@ const Projects = () => {
               <div className="w-16 h-16 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
             </div>
           ) : (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
               {filteredProjects.map((project, index) => (
                 <div
                   key={index}
-                  className={`group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  }`}
+                  className={`group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                    }`}
                   style={{ transitionDelay: `${index * 150}ms` }}
                 >
                   <div className="relative flex items-center justify-center h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
                     {project.image ? (
                       <>
-                        <img 
-                          src={project.image} 
+                        <img
+                          src={project.image}
                           alt={project.title}
                           className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
                         />
@@ -266,7 +254,7 @@ const Projects = () => {
                       ))}
                     </div>
 
-                    <div className="flex gap-4">
+                    {/* <div className="flex gap-4">
                       <a
                         href={project.github}
                         target="_blank"
@@ -283,7 +271,7 @@ const Projects = () => {
                       >
                         <FaExternalLinkAlt /> Demo
                       </a>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}

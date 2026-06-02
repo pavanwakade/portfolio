@@ -68,29 +68,24 @@ const About = () => {
 
             <div className={`transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
               <h3 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
-                Full Stack Java Developer
+                Java Full Stack Developer
               </h3>
 
               <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                Hi, I'm <b>Pavan Wakade</b> — a passionate Full Stack Java Developer who loves crafting efficient, scalable, and secure applications.
-                I specialize in Core Java, Spring Boot, Hibernate (JPA), and RESTful API development using modern software practices.
+                Hi, I'm <b>Pavan Wakade</b> — a passionate Java Full Stack Developer with <b>4+ years of professional experience</b> designing, developing, and deploying scalable, high-performance enterprise applications.
               </p>
 
               <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                My expertise spans backend development with Java and database integration using Oracle, MySQL, and PostgreSQL,
-                combined with a strong command of frontend technologies like HTML, CSS, JavaScript, and responsive UI design.
+                I specialize in building decoupled backend microservices with Java, Spring Boot, and Hibernate (JPA), orchestrating asynchronous workflows using Apache Kafka, and integrating secure authentication via Spring Security (JWT, OAuth2, RBAC). My frontend toolkit includes React.js and Angular 14 for creating intuitive, responsive interfaces.
               </p>
 
               <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                I enjoy building real-world projects — from API-driven systems to full-stack web apps — with a focus on clean code,
-                performance optimization, and seamless user experiences powered by Spring, JDBC, and JSP.
+                Throughout my career, I've successfully engineered complex business-critical systems, such as a Loan Management System and a large-scale Online E-Commerce Platform. I prioritize database integrity (MySQL, PostgreSQL, Oracle), containerization (Docker, Kubernetes), cloud deployments (AWS EC2), and test automation.
               </p>
 
               <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                Beyond coding, I’m deeply curious about new technologies, love contributing to innovative ideas,
-                and enjoy mentoring others to grow as developers in the world of Java and web development.
+                I thrive in Agile/Scrum environments, advocating for clean code standards, early return patterns, comprehensive API documentation (Swagger/OpenAPI), and thorough system metrics tracking.
               </p>
-
 
               <div className="flex flex-wrap gap-4">
                 <a
@@ -101,7 +96,8 @@ const About = () => {
                 </a>
                 <a
                   href="https://drive.google.com/drive/folders/1Kan1NIHjEDnytGzDGkvyebdrgBbUc3bT?usp=drive_link"
-                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-6 py-3 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
                 >
                   Download CV

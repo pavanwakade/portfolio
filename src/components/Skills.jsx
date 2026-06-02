@@ -15,12 +15,12 @@ import {
   FaGitAlt,
   FaAws,
   FaLeaf,
+  FaCloud,
 } from 'react-icons/fa'
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [skillsData, setSkillsData] = useState([])
-  const [technologies, setTechnologies] = useState([])
   const sectionRef = useRef(null)
 
   // Icon map (for API-driven dynamic skills)
@@ -40,11 +40,11 @@ const Skills = () => {
     FaGitAlt,
     FaAws,
     FaLeaf,
+    FaCloud,
   }
 
   const API_URLS = {
     skills: 'https://script.google.com/macros/s/AKfycbzlSuUUFMhsMndp2BdN8x_4m9z2ym-u2LMofsfcM3c0D98kPxppEfCfoSn0OdxOktv6PA/exec',
-    technologies: 'https://script.google.com/macros/s/AKfycbxOciCQmF731K-g8eNBDblAlyravEB5HFdSVeKhqqN85CDBI-27DMzbl9ewGWFoWhbZGQ/exec',
   }
 
   // INTERSECTION OBSERVER (scroll animation)
@@ -59,60 +59,135 @@ const Skills = () => {
     return () => observer.disconnect()
   }, [])
 
-  // FETCH DATA (skills + technologies)
+  // Fallback Skills
+  const getFallbackSkills = () => [
+    {
+      title: 'Backend Development',
+      icon: FaServer,
+      skills: [
+        { name: 'Java (8/11/17)' },
+        { name: 'Spring Boot' },
+        { name: 'Spring MVC' },
+        { name: 'Microservices' },
+        { name: 'Hibernate & JPA' },
+        { name: 'RESTful APIs' },
+        { name: 'JDBC' }
+      ]
+    },
+    {
+      title: 'Frontend Development',
+      icon: FaLaptopCode,
+      skills: [
+        { name: 'React.js' },
+        { name: 'Angular 14' },
+        { name: 'JavaScript' },
+        { name: 'TypeScript' },
+        { name: 'HTML5 & CSS3' },
+        { name: 'Bootstrap' }
+      ]
+    },
+    {
+      title: 'Databases & Caching',
+      icon: FaDatabase,
+      skills: [
+        { name: 'MySQL' },
+        { name: 'PostgreSQL' },
+        { name: 'Oracle' },
+        { name: 'MongoDB' },
+        { name: 'Apache Kafka' },
+        { name: 'Redis' }
+      ]
+    },
+    {
+      title: 'DevOps & Cloud',
+      icon: FaCloud,
+      skills: [
+        { name: 'Docker' },
+        { name: 'Kubernetes' },
+        { name: 'AWS EC2' },
+        { name: 'AWS Elastic Beanstalk' },
+        { name: 'Jenkins' },
+        { name: 'CI/CD Pipelines' }
+      ]
+    },
+    {
+      title: 'Testing & Tools',
+      icon: FaTools,
+      skills: [
+        { name: 'JUnit' },
+        { name: 'Postman' },
+        { name: 'Swagger' },
+        { name: 'Git & Bitbucket' },
+        { name: 'Maven' },
+        { name: 'Jira' },
+        { name: 'Datadog' },
+        { name: 'ServiceNow' }
+      ]
+    },
+    {
+      title: 'Servers & Concepts',
+      icon: FaCode,
+      skills: [
+        { name: 'Apache Tomcat' },
+        { name: 'JBoss' },
+        { name: 'OOP & Design Patterns' },
+        { name: 'Multithreading' },
+        { name: 'Collections Framework' },
+        { name: 'Agile & Scrum' }
+      ]
+    }
+  ]
+
+  // FETCH DATA (skills only)
   useEffect(() => {
     const fetchData = async () => {
+      let skillsFetched = false
+
       try {
         // Fetch Skills
         const skillsResponse = await fetch(`${API_URLS.skills}?action=list`)
-        const skillsData = await skillsResponse.json()
+        if (skillsResponse.ok) {
+          const skillsData = await skillsResponse.json()
+          if (skillsData.success && skillsData.skills && skillsData.skills.length > 0) {
+            const skills = skillsData.skills || []
 
-        if (skillsData.success) {
-          const skills = skillsData.skills || []
+            // Grouping logic with fixed icons
+            const grouped = {
+              Backend: { title: 'Backend Development', icon: FaServer, skills: [] },
+              Frontend: { title: 'Frontend Development', icon: FaLaptopCode, skills: [] },
+              Database: { title: 'Databases & Caching', icon: FaDatabase, skills: [] },
+              Cloud: { title: 'DevOps & Cloud', icon: FaCloud, skills: [] },
+              Tools: { title: 'Testing & Tools', icon: FaTools, skills: [] },
+              IDE: { title: 'Servers & Concepts', icon: FaCode, skills: [] },
+              'Other Skills': { title: 'Other Skills', icon: FaCogs, skills: [] },
+            }
 
-          // Grouping logic with fixed icons
-          const grouped = {
-            Backend: { title: 'Backend', icon: FaServer, skills: [] },
-            Frontend: { title: 'Frontend', icon: FaLaptopCode, skills: [] },
-            Database: { title: 'Database', icon: FaDatabase, skills: [] },
-            Tools: { title: 'Tools', icon: FaWrench, skills: [] },
-            IDE: { title: 'IDE', icon: FaCode, skills: [] },
-            'Other Skills': { title: 'Other Skills', icon: FaCogs, skills: [] },
-          }
+            // Push data into relevant category
+            skills.forEach((skill) => {
+              const key =
+                grouped[skill.level] ? skill.level : 'Other Skills'
 
-          // Push data into relevant category
-          skills.forEach((skill) => {
-            const key =
-              grouped[skill.level] ? skill.level : 'Other Skills'
-
-            grouped[key].skills.push({
-              name: skill.name,
-              level: skill.percentage,
-              icon: iconMap[skill.icon] || FaCode,
-              color: skill.color,
+              grouped[key].skills.push({
+                name: skill.name,
+                icon: iconMap[skill.icon] || FaCode,
+                color: skill.color,
+              })
             })
-          })
 
-          const groupedArray = Object.values(grouped).filter(
-            (cat) => cat.skills.length > 0
-          )
-          setSkillsData(groupedArray)
-        } else {
-          console.error('Skills API returned error:', skillsData.message)
-        }
-
-        // Fetch Technologies
-        const techResponse = await fetch(`${API_URLS.technologies}?action=list`)
-        const techData = await techResponse.json()
-
-        if (techData.success) {
-          const techs = techData.technologies || []
-          setTechnologies(techs.map((t) => t.name))
-        } else {
-          console.error('Technologies API returned error:', techData.message)
+            const groupedArray = Object.values(grouped).filter(
+              (cat) => cat.skills.length > 0
+            )
+            setSkillsData(groupedArray)
+            skillsFetched = true
+          }
         }
       } catch (err) {
-        console.error('Error fetching data:', err)
+        console.error('Error fetching skills from API:', err)
+      }
+
+      // If API skills load failed or was empty, use fallback
+      if (!skillsFetched) {
+        setSkillsData(getFallbackSkills())
       }
     }
 
@@ -162,29 +237,15 @@ const Skills = () => {
                     </h3>
                   </div>
 
-                  <div className="space-y-6">
+                  <div className="flex flex-wrap gap-2.5">
                     {category.skills.map((skill, skillIndex) => (
-                      <div key={skillIndex}>
-                        <div className="flex justify-between mb-2">
-                          <span className="font-medium text-gray-700 dark:text-gray-300">
-                            {skill.name}
-                          </span>
-                          <span className="font-semibold text-blue-600 dark:text-blue-400">
-                            {skill.level}%
-                          </span>
-                        </div>
-                        <div className="w-full h-3 overflow-hidden bg-gray-200 rounded-full dark:bg-gray-700">
-                          <div
-                            className="h-full transition-all duration-1000 ease-out rounded-full bg-gradient-to-r from-blue-500 to-purple-600"
-                            style={{
-                              width: isVisible ? `${skill.level}%` : '0%',
-                              transitionDelay: `${
-                                categoryIndex * 200 + skillIndex * 100
-                              }ms`,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
+                      <span
+                        key={skillIndex}
+                        className="px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-200/60 rounded-xl shadow-sm dark:bg-gray-900/60 dark:border-gray-700/60 dark:text-gray-200 hover:scale-105 hover:border-emerald-500 dark:hover:border-emerald-400 transition-all duration-300 flex items-center gap-2 cursor-default select-none"
+                      >
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
+                        {skill.name}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -192,31 +253,7 @@ const Skills = () => {
             </div>
           )}
 
-          <div
-            className={`mt-16 text-center transition-all duration-1000 delay-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
-            <h3 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
-              Technologies I Work With
-            </h3>
-            {technologies.length === 0 ? (
-              <p className="text-gray-600 dark:text-gray-400">
-                Loading technologies...
-              </p>
-            ) : (
-              <div className="flex flex-wrap justify-center gap-4">
-                {technologies.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="px-6 py-3 font-medium text-gray-700 transition-all duration-300 border rounded-full cursor-default bg-gradient-to-r from-blue-500/10 to-purple-600/10 border-blue-500/20 dark:text-gray-300 hover:scale-110 hover:shadow-lg"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Removed Technologies I Work With section */}
         </div>
       </div>
     </section>

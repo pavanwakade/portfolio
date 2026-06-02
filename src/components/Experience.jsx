@@ -46,45 +46,35 @@ const Experience = () => {
 
     const experiences = [
         {
-            title: 'Java Full Stack Developer',
-            company: 'Corelleaf, Kharadi, Pune',
-            period: 'July 2024 – Present',
+            title: 'Java Full Stack Developer (Loan Management System)',
+            company: 'SDK Infotech Pvt. Ltd.',
+            period: 'Mar 2022 – Present',
             description:
-                'Developing full-stack web applications integrating external REST APIs using Spring Boot and managing secure backend services. Designing responsive front-end interfaces and deploying applications using Docker.',
+                'Designed and developed an enterprise-grade web application to automate and manage the complete lifecycle of loan processing for banks and financial institutions.',
             achievements: [
-                'Converted from Intern to Full-Time Employee within 2 months based on performance',
-                'Implemented Full stack web Application using Spring boot , React ,MySQL',
-                'Developed reusable APIs and optimized MySQL database schema',
-                // 'Deployed applications via Docker and AWS Elastic Beanstalk',
+                'Developed and maintained scalable RESTful APIs using Spring Boot and Java 17 for loan processing and repayment modules.',
+                'Implemented business logic for loan eligibility validation, EMI calculation, interest computation, and repayment scheduling.',
+                'Designed and integrated microservices architecture for customer, loan, payment, and notification services.',
+                'Developed secure authentication and authorization mechanisms using JWT and Spring Security with Role-Based Access Control (RBAC).',
+                'Integrated Apache Kafka for asynchronous event-driven communication between services.'
             ],
             icon: FaBriefcase,
         },
         {
-            title: 'Web Development Intern',
-            company: 'Inlight Technology, Latur',
-            period: '2022 – 2022',
+            title: 'Java Full Stack Developer (Online E-Commerce Platform)',
+            company: 'SDK Infotech Pvt. Ltd.',
+            period: 'Mar 2022 – Present',
             description:
-                'Built responsive web applications using HTML, CSS, and JavaScript while collaborating with senior developers. Worked on full-stack development and software testing.',
+                'Built an enterprise-level e-commerce platform supporting vendor management, inventory tracking, order fulfillment, secure payments, and analytics dashboards.',
             achievements: [
-                'Developed tendering management web application with authentication and dashboard tracking',
-                'Gained hands-on experience with full-stack project lifecycle',
-                'Improved project UI/UX and responsiveness',
+                'Developed scalable RESTful APIs using Spring Boot and Java 17 for product catalog, cart, order management, inventory, and payment modules.',
+                'Implemented microservices architecture for customer, product, order, payment, and notification services.',
+                'Developed shopping cart, checkout, order processing, and shipment tracking functionalities.',
+                'Integrated secure authentication and authorization using JWT, OAuth2, and Spring Security.',
+                'Implemented asynchronous event-driven communication using Apache Kafka for order events, notifications, and inventory synchronization.'
             ],
             icon: FaLaptopCode,
         },
-        //   {
-        //     title: 'Java Developer Intern',
-        //     company: 'Robowaves',
-        //     period: '2024',
-        //     description:
-        //       'Worked on multiple Java-based applications and database-driven systems using Swing, AWT, and MySQL.',
-        //     achievements: [
-        //       'Developed NASA-API integrated Spring Boot application',
-        //       'Built Java GUI projects including Notepad Clone and Nvidia Fibernet system',
-        //       'Designed MySQL database schemas for application integration',
-        //     ],
-        //     icon: FaCode,
-        //   },
     ];
 
     const education = [
@@ -92,28 +82,28 @@ const Experience = () => {
             degree: 'Bachelor of Engineering',
             field: 'Electronics & Telecommunications Engineering',
             institution: 'Savitribai Phule Pune University',
-            period: '2021 – 2024',
+            period: '',
             icon: FaGraduationCap,
         },
         {
             degree: 'Diploma of Engineering',
             field: 'Computer Technology',
             institution: 'MSBTE Mumbai',
-            period: '2018 – 2021',
+            period: '',
             icon: FaUniversity,
         },
         {
             degree: 'Development - Certification',
             field: 'Full Stack Java Developer,',
             institution: 'QSpiders Deccen',
-            period: '2024 – 2025',
+            period: '',
             icon: FaCertificate,
         },
         {
             degree: 'Development - Certification',
             field: 'Full Stack Java Developer',
             institution: 'Symbiosis',
-            period: '2023',
+            period: '',
             icon: FaCertificate,
         },
 

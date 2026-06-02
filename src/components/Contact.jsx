@@ -66,15 +66,15 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'pavanwakade143@gmail.com',
-      link: 'mailto:pavanwakade143@gmail.com',
+      value: 'pavanwakade33@gmail.com',
+      link: 'mailto:pavanwakade33@gmail.com',
       gradient: 'from-violet-500 to-purple-500',
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+91 8317277608',
-      link: 'tel:+918317277608',
+      value: '+91 8802896767',
+      link: 'tel:+918802896767',
       gradient: 'from-blue-500 to-cyan-500',
     },
     {
@@ -96,7 +96,7 @@ const Contact = () => {
     {
       icon: Github,
       name: 'GitHub',
-      url: 'https://github.com/pavanwakade/QSpiders-Full-Stack-Java',
+      url: 'https://github.com/pavanwakade',
       gradient: 'from-gray-800 via-gray-700 to-gray-900',
     },
   ]
@@ -217,7 +217,7 @@ const Contact = () => {
                           onChange={handleChange}
                           required
                           className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                          // placeholder="John Doe"
+                        // placeholder="John Doe"
                         />
                       </div>
 
@@ -230,7 +230,7 @@ const Contact = () => {
                           onChange={handleChange}
                           required
                           className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                          // placeholder="john@example.com"
+                        // placeholder="john@example.com"
                         />
                       </div>
                     </div>
@@ -244,7 +244,7 @@ const Contact = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                        // placeholder="Project Inquiry"
+                      // placeholder="Project Inquiry"
                       />
                     </div>
 
@@ -257,16 +257,15 @@ const Contact = () => {
                         required
                         rows="6"
                         className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400 resize-none"
-                        // placeholder="Tell me about your project..."
+                      // placeholder="Tell me about your project..."
                       ></textarea>
                     </div>
 
                     <button
                       onClick={handleSubmit}
                       disabled={isSubmitting}
-                      className={`group relative w-full py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-xl font-bold shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${
-                        isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:scale-105'
-                      }`}
+                      className={`group relative w-full py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-xl font-bold shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:scale-105'
+                        }`}
                     >
                       <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 group-hover:opacity-100"></div>
                       {isSubmitting ? (

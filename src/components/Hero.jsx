@@ -143,7 +143,7 @@ import pavanwakade from "../assets/pavanfull.jpg"
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('')
-  const roles = ['Full Stack Developer', 'Java Expert', 'Problem Solver', 'Tech Enthusiast']
+  const roles = ['Java Full Stack Developer', 'Spring Boot & Microservices', 'RESTful API Specialist', 'DevOps & Cloud Enthusiast']
   const [roleIndex, setRoleIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -178,15 +178,15 @@ const Hero = () => {
           {/* Left Content */}
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
-              <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg uppercase tracking-wider">Full stack Developer</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg uppercase tracking-wider font-semibold">Java Full Stack Developer</p>
               
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white leading-tight">
                 Hello I'm<br />
-                <span className="text-emerald-500 dark:text-emerald-400">Pavan Wakade</span>
+                <span className="text-emerald-500 dark:text-emerald-400 animate-pulse-slow">Pavan Wakade</span>
               </h1>
 
               <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-xl leading-relaxed">
-                I excel at crafting elegant digital experiences and I am proficient in various programming languages and technologies. Transforming ideas into powerful, scalable applications.
+                Java Full Stack Developer with 4+ years of experience in designing, developing, and deploying scalable enterprise microservices using Spring Boot, Kafka, and React.js.
               </p>
             </div>
 
@@ -200,14 +200,14 @@ const Hero = () => {
             <div className="flex flex-wrap gap-3 sm:gap-4">
               <a
                   href="#contact"
-                className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-gray-900 font-semibold rounded-md transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+                className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-semibold rounded-md transition-all duration-300 hover:scale-105 text-sm sm:text-base shadow-lg hover:shadow-emerald-500/20"
               >
                 Hire Me
               </a>
 
                <a
                   href="https://drive.google.com/drive/folders/1Kan1NIHjEDnytGzDGkvyebdrgBbUc3bT?usp=drive_link"
-                className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-gray-900 font-semibold rounded-md transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+                className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-semibold rounded-md transition-all duration-300 hover:scale-105 text-sm sm:text-base shadow-lg hover:shadow-emerald-500/20"
               >
                 <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                 DOWNLOAD CV
@@ -218,10 +218,7 @@ const Hero = () => {
                 {[
                   { icon: Linkedin, href: 'https://www.linkedin.com/in/pavan-w/', label: 'LinkedIn' },
                   { icon: Github, href: 'https://github.com/pavanwakade', label: 'GitHub' },
-                  // { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-                  { icon: Mail, href: 'mailto:pavanwakade143@gmail.com', label: 'Email' },
-                   
-                  
+                  { icon: Mail, href: 'mailto:pavanwakade33@gmail.com', label: 'Email' },
                 ].map((social) => {
                   const Icon = social.icon
                   return (
@@ -276,22 +273,22 @@ const Hero = () => {
         </div>
 
         {/* Stats Section */}
-        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 lg:mt-20">
           {[
-            { value: '3+', label: 'Years of', sublabel: 'experience' },
-            { value: '15+', label: 'Projects', sublabel: 'completed' },
-            { value: '5+', label: 'Technologies', sublabel: 'mastered' },
-            { value: '500+', label: 'Code', sublabel: 'commits' },
+            { value: '4+', label: 'Years of', sublabel: 'Experience' },
+            { value: '2+', label: 'Enterprise', sublabel: 'Projects' },
+            { value: '15+', label: 'Technologies', sublabel: 'Mastered' },
+            { value: '100%', label: 'Production-Grade', sublabel: 'Delivery' },
           ].map((stat, index) => (
-            <div key={index} className="text-center space-y-1">
-              <div className="text-4xl md:text-5xl font-bold text-white">{stat.value}</div>
-              <div className="text-gray-400 text-sm">
+            <div key={index} className="text-center space-y-1 p-4 rounded-xl bg-gray-100/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:scale-105 transition-transform duration-300 shadow-sm hover:shadow-md">
+              <div className="text-3xl md:text-4xl font-bold text-emerald-500 dark:text-emerald-400">{stat.value}</div>
+              <div className="text-gray-600 dark:text-gray-400 text-xs md:text-sm font-medium">
                 <div>{stat.label}</div>
                 <div>{stat.sublabel}</div>
               </div>
             </div>
           ))}
-        </div> */}
+        </div>
       </div>
 
       {/* Scroll indicator */}
