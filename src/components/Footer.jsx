@@ -9,7 +9,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { icon: FaLinkedin, url: 'https://www.linkedin.com/in/pavan-w/', label: 'LinkedIn' },
+    { icon: FaLinkedin, url: 'https://www.linkedin.com/in/pavan-wakade', label: 'LinkedIn' },
     { icon: FaGithub, url: 'https://github.com/pavanwakade', label: 'GitHub' },
     { icon: HiMail, url: 'mailto:pavanwakade33@gmail.com', label: 'Email' },
   ]

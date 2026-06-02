@@ -90,7 +90,7 @@ const Contact = () => {
     {
       icon: Linkedin,
       name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/pavan-w/',
+      url: 'https://www.linkedin.com/in/pavan-wakade',
       gradient: 'from-blue-600 via-blue-500 to-cyan-500',
     },
     {
