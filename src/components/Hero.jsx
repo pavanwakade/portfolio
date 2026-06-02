@@ -206,7 +206,9 @@ const Hero = () => {
               </a>
 
                <a
-                  href="https://drive.google.com/drive/folders/1Kan1NIHjEDnytGzDGkvyebdrgBbUc3bT?usp=drive_link"
+                  href="https://drive.google.com/embeddedfolderview?id=17ALuO4nx5tZkHnuEHW88eT5wc8YwApYr#list"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-semibold rounded-md transition-all duration-300 hover:scale-105 text-sm sm:text-base shadow-lg hover:shadow-emerald-500/20"
               >
                 <Download className="w-4 h-4 sm:w-5 sm:h-5" />
