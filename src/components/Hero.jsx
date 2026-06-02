@@ -179,7 +179,7 @@ const Hero = () => {
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
               <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg uppercase tracking-wider font-semibold">Java Full Stack Developer</p>
-              
+
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white leading-tight">
                 Hello I'm<br />
                 <span className="text-emerald-500 dark:text-emerald-400 animate-pulse-slow">Pavan Wakade</span>
@@ -199,22 +199,22 @@ const Hero = () => {
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-3 sm:gap-4">
               <a
-                  href="#contact"
+                href="#contact"
                 className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-semibold rounded-md transition-all duration-300 hover:scale-105 text-sm sm:text-base shadow-lg hover:shadow-emerald-500/20"
               >
                 Hire Me
               </a>
 
-               <a
-                  href="https://drive.google.com/embeddedfolderview?id=17ALuO4nx5tZkHnuEHW88eT5wc8YwApYr#list"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <a
+                href="https://drive.google.com/file/d/1FimyxwlBtIEBdqrBE_Ss56BYOYL081HM/view"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-semibold rounded-md transition-all duration-300 hover:scale-105 text-sm sm:text-base shadow-lg hover:shadow-emerald-500/20"
               >
                 <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                 DOWNLOAD CV
               </a>
-              
+
               {/* Social Icons */}
               <div className="flex gap-2 sm:gap-3">
                 {[
@@ -258,7 +258,7 @@ const Hero = () => {
                   />
                 </svg>
               </div>
-              
+
               {/* Image container */}
               <div className="absolute inset-4 rounded-full overflow-hidden border-4 border-gray-200 dark:border-gray-800 shadow-2xl">
                 <img
@@ -267,7 +267,7 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               {/* Glow effect */}
               <div className="absolute inset-0 rounded-full bg-emerald-500/10 dark:bg-emerald-500/10 blur-3xl -z-10"></div>
             </div>
