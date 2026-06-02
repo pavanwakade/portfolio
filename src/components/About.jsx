@@ -95,7 +95,7 @@ const About = () => {
                   Hire Me
                 </a>
                 <a
-                  href="https://drive.google.com/embeddedfolderview?id=17ALuO4nx5tZkHnuEHW88eT5wc8YwApYr#list"
+                  href="https://drive.google.com/file/d/1FimyxwlBtIEBdqrBE_Ss56BYOYL081HM/view"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
