@@ -218,7 +218,7 @@ const Hero = () => {
               {/* Social Icons */}
               <div className="flex gap-2 sm:gap-3">
                 {[
-                  { icon: Linkedin, href: 'https://www.linkedin.com/in/pavan-w/', label: 'LinkedIn' },
+                  { icon: Linkedin, href: 'https://www.linkedin.com/in/pavan-wakade', label: 'LinkedIn' },
                   { icon: Github, href: 'https://github.com/pavanwakade', label: 'GitHub' },
                   { icon: Mail, href: 'mailto:pavanwakade33@gmail.com', label: 'Email' },
                 ].map((social) => {
